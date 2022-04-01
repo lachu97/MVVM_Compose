@@ -63,6 +63,26 @@ class netviewmodel : ViewModel() {
         }
     }
 
+    suspend fun <T> getdatausignsealed(): NetworkResult<Any> {
+        return try {
+            val meals: ArrayList<meals> = Client.get(url)
+            NetworkResult.Success(
+                meals
+            )
+        } catch (e: NoTransformationFoundException) {
+            NetworkResult.Error(
+                null,
+                e.message
+            )
+
+        } catch (er: NetworkErrorException) {
+            NetworkResult.Error(
+                null,
+                er.message
+            )
+        }
+    }
+
     init {
         viewModelScope.launch {
             try {
@@ -71,6 +91,27 @@ class netviewmodel : ViewModel() {
                 delay(5000L)
                 val meals: ArrayList<meals> = Client.get(url)
                 val category: ArrayList<category> = Client.get(url2)
+                val item=getdatausignsealed<Any>()
+                item.let {
+                    when(it)
+                    {
+                        is NetworkResult.Success ->{
+                            val dataval=it.data as List<*>
+                            dataval.let {
+                                it.forEach {
+                                    Log.i("MainActiviyt","Print ${it}")
+                                }
+                            }
+                            Log.i("MainActiviyt","Value=${it.data}")
+                        }
+                        is NetworkResult.Error ->{
+
+                        }
+                        is NetworkResult.Loading ->{
+
+                        }
+                    }
+                }
                 newfoods.value = meals
                 mycategory.value = category
                 genericlass.list = meals
@@ -78,10 +119,10 @@ class netviewmodel : ViewModel() {
                 responseData.value = NetworkResult.Success(data = data("Success", 0))
                 isload.value = false
             } catch (e: NoTransformationFoundException) {
-                responseData.value = NetworkResult.Error(e.message)
+                responseData.value = NetworkResult.Error(null, e.message)
                 Log.i("MainActivity", "Value ${e.message}")
             } catch (err: NetworkErrorException) {
-                responseData.value = NetworkResult.Error(err.message)
+                responseData.value = NetworkResult.Error(null, err.message)
                 Log.i("mainactibviy", "Error in Netswork ${err.message}")
             }
         }

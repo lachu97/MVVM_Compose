@@ -24,10 +24,11 @@ import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
-fun verticalist(data: List<meals>,
-                navController: NavController,
-                viewmodel:netviewmodel
-                ) {
+fun verticalist(
+    data: List<meals>,
+    navController: NavController,
+    viewmodel: netviewmodel
+) {
     LazyColumn(
         modifier = Modifier
             .padding(10.dp)
@@ -49,16 +50,16 @@ fun customcard(data: meals, onclick: () -> Unit) {
             .padding(5.dp)
             .fillMaxWidth()
             .height(150.dp)
-            .clickable(onClick = onclick)
-        ,
+            .clickable(onClick = onclick),
         elevation = 5.dp
     ) {
         Row(
             modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically
         ) {
             data.image.let {
-                Surface(elevation = 5.dp,border = BorderStroke(1.dp,color =Color.Black)) {
+                Surface(elevation = 5.dp, border = BorderStroke(1.dp, color = Color.Black)) {
                     CoilImage(
+
                         imageModel = it,
                         modifier = Modifier
                             .width(160.dp)

@@ -49,9 +49,13 @@ class MainActivity : ComponentActivity() {
                 val mycategory = viewModel.mycategory.value
                 navcontrol = rememberNavController()
 //                newshimmer()
-                Log.i("MainActivity","New Values in the value =${viewModel.genericlass.genlist().forEach { 
-                    Log.i("Inside","${it}")
-                }}")
+                Log.i(
+                    "MainActivity", "New Values in the value =${
+                        viewModel.genericlass.genlist().forEach {
+                            Log.i("Inside", "${it}")
+                        }
+                    }"
+                )
                 Surface(color = MaterialTheme.colors.background) {
                     Navgraph(
                         navcontrol = navcontrol,
@@ -63,16 +67,16 @@ class MainActivity : ComponentActivity() {
             }
 
         }
-           viewModel.responseData.observe(this,{
-               when (it) {
-                   is NetworkResult.Loading -> {
-                       Log.i("Network Logs", "Loading")
-                   }
-                   is NetworkResult.Success -> {
-                       Log.i(
-                           "Network Logs",
-                           "Success and value = ${it.data?.name} and ID= ${it.data?.id}"
-                       )
+        viewModel.responseData.observe(this, {
+            when (it) {
+                is NetworkResult.Loading -> {
+                    Log.i("Network Logs", "Loading")
+                }
+                is NetworkResult.Success -> {
+                    Log.i(
+                        "Network Logs",
+                        "Success and value = ${it.data?.name} and ID= ${it.data?.id}"
+                    )
 
 //                            Surface(color = MaterialTheme.colors.background) {
 //                                Navgraph(
@@ -82,12 +86,12 @@ class MainActivity : ComponentActivity() {
 //                                    vModel = viewModel
 //                                )
 //                            }
-                   }
-                   is NetworkResult.Error -> {
-                       Log.i("Network Logs", "Error in Network Call =${it.message}")
-                   }
-               }
-           })
+                }
+                is NetworkResult.Error -> {
+                    Log.i("Network Logs", "Error in Network Call =${it.message}")
+                }
+            }
+        })
 
         // A surface container using the 'background' color from the theme
 
