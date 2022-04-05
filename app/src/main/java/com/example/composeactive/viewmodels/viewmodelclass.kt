@@ -30,6 +30,9 @@ class netviewmodel : ViewModel() {
     val getselecteditem: meals? get() = _selecteditem.value
     val responseData: MutableLiveData<NetworkResult<data>> =
         MutableLiveData(NetworkResult.Loading())
+    //New one for testing
+    var _myselecteditem: MutableState<Any?> = mutableStateOf(null)
+    val getSelectedItem get() = _myselecteditem.value
     val url = "http://blacky.tech/mealsapi/meals.php"
     val url2 = "http://blacky.tech/mealsapi/category.php"
     val url3 = "http://blacky.tech/mealsapi/search.php"
@@ -39,6 +42,14 @@ class netviewmodel : ViewModel() {
             accept(ContentType.Any)
 
         }
+    }
+    fun <T> assignItem(item: T) {
+        _myselecteditem.value = item
+        Log.i("ViewModel","Value in _MyselectedItem=${getSelectedItem}")
+    }
+
+    fun getItem(): Any? {
+        return getSelectedItem
     }
 
     fun selectitem(meals: meals) {

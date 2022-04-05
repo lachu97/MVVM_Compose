@@ -38,6 +38,7 @@ fun verticalist(
             customcard(data = item, onclick = {
                 navController.navigate(Screen.moredetail.route)
                 viewmodel.selectitem(item)
+                viewmodel.assignItem(item = item)
             })
         }
     }
